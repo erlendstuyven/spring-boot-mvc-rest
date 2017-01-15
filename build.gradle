@@ -14,11 +14,20 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'gs-rest-service'
-    version =  '0.1.0'
+    version = '0.1.0'
 }
 
 repositories {
     mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:Athens-SR2'
+    }
+    dependencies {
+//        dependency 'org.twitter4j:twitter4j-core:4.0.4'
+    }
 }
 
 sourceCompatibility = 1.8
@@ -26,7 +35,8 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("javax.inject:javax.inject")
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-// comment

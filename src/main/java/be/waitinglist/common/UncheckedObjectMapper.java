@@ -1,21 +1,21 @@
-package be.waitinglist.login.common;
+package be.waitinglist.common;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.UncheckedIOException;
+
 public class UncheckedObjectMapper extends ObjectMapper{
 
     @Override
-    public String writeValueAsString(Object value) throws JsonProcessingException {
-        super.writeValueAsString(value);
-        this.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        String loginMessage = null;
+    public String writeValueAsString(Object value)  {
         try {
-            loginMessage = objectMapper.writeValueAsString(login);
+            return super.writeValueAsString(value);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            throw new UncheckedIOException(e);
         }
     }
 }
